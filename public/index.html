@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Docs HTML Viewer</title>
+</head>
+<body>
+  <h1>Google Docs HTML Viewer</h1>
+  <label for="docId">Enter Google Docs ID:</label>
+  <input type="text" id="docId" name="docId" required>
+  <button onclick="getDocHTML()">Get HTML</button>
+  <div id="result"></div>
+
+  <script>
+    async function getDocHTML() {
+      const docId = document.getElementById('docId').value;
+
+      const response = await fetch('/getDocHTML', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ docId }),
+      });
+
+      const html = await response.text();
+      document.getElementById('result').innerHTML = html;
+    }
+  </script>
+</body>
+</html>
